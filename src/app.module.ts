@@ -12,7 +12,7 @@ import { User } from './user/user.entity';
 import { Profile } from './profile/profile.entity';
 import { MyLogs } from './my_logs/my_logs.entity';
 import { Roles } from './roles/roles.entity';
-
+import ormconfig from '../ormconfig'
 
 const envFilePath = `.env.${process.env.NODE_ENV || 'development'}`
 
@@ -24,22 +24,24 @@ const envFilePath = `.env.${process.env.NODE_ENV || 'development'}`
       load: [() => dotenv.config({path: './.env'})], // 安装@nestjs/config和dotenv
 
     }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: configService.get(ConfigEnum.DB_TYPE),
-        host: configService.get(ConfigEnum.DB_HOST),
-        port: configService.get(ConfigEnum.DB_PORT),
-        username: configService.get(ConfigEnum.DB_USERNAME),
-        password: configService.get(ConfigEnum.DB_PASSWORD),
-        database: configService.get(ConfigEnum.DB_DATABASE),
-        entities: [User, Profile, MyLogs, Roles],
-        synchronize: configService.get(ConfigEnum.DB_SYNCHRONIZE), //同步本地的schema与数据库 -> 初始化的时候去使用
-        // logging: ['error']
-        // logging: process.env.NODE_ENV === 'development'
-      } as TypeOrmModuleOptions),
-    }),
+    TypeOrmModule.forRoot(ormconfig),
+    // TypeOrmModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   inject: [ConfigService],
+    //   useFactory: (configService: ConfigService) => ({
+    //     type: configService.get(ConfigEnum.DB_TYPE),
+    //     host: configService.get(ConfigEnum.DB_HOST),
+    //     port: configService.get(ConfigEnum.DB_PORT),
+    //     username: configService.get(ConfigEnum.DB_USERNAME),
+    //     password: configService.get(ConfigEnum.DB_PASSWORD),
+    //     database: configService.get(ConfigEnum.DB_DATABASE),
+    //     entities: [User, Profile, MyLogs, Roles],
+    //     synchronize: configService.get(ConfigEnum.DB_SYNCHRONIZE), //同步本地的schema与数据库 -> 初始化的时候去使用
+    //     // logging: ['error']
+    //     // logging: process.env.NODE_ENV === 'development'
+    //   } as TypeOrmModuleOptions),
+    // }),
+
     // TypeOrmModule.forRoot({
     //   type: 'mysql',
     //   host: 'localhost',
