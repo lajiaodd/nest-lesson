@@ -1,20 +1,19 @@
-import { Controller, Get} from '@nestjs/common';
+import { Controller, Get, Inject, LoggerService } from '@nestjs/common';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { UserService } from './user.service';
 import { ConfigService } from '@nestjs/config';
-import { ConfigEnum } from 'src/enum/config.enum';
 
 @Controller('user')
 export class UserController {
     constructor(
         private userService: UserService,
         private configService: ConfigService,
+        @Inject(WINSTON_MODULE_NEST_PROVIDER) private readonly logger: LoggerService
     ){}
 
     @Get()
     getUser(): any {
-        console.log(this.configService.get(ConfigEnum.DB_DATABASE));
-        console.log(this.configService.get("DB_URL"));
-        console.log(process.env.NODE_ENV);
+        this.logger.warn('hello')
         
         return this.userService.getUser()
     }

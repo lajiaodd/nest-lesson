@@ -12,7 +12,8 @@ import { User } from './user/user.entity';
 import { Profile } from './profile/profile.entity';
 import { MyLogs } from './my_logs/my_logs.entity';
 import { Roles } from './roles/roles.entity';
-import ormconfig from '../ormconfig'
+import {connectionParams} from '../ormconfig'
+import { MyLogsModule } from './my_logs/my_logs.module';
 
 const envFilePath = `.env.${process.env.NODE_ENV || 'development'}`
 
@@ -24,7 +25,7 @@ const envFilePath = `.env.${process.env.NODE_ENV || 'development'}`
       load: [() => dotenv.config({path: './.env'})], // 安装@nestjs/config和dotenv
 
     }),
-    TypeOrmModule.forRoot(ormconfig),
+    TypeOrmModule.forRoot(connectionParams),
     // TypeOrmModule.forRootAsync({
     //   imports: [ConfigModule],
     //   inject: [ConfigService],
@@ -53,7 +54,8 @@ const envFilePath = `.env.${process.env.NODE_ENV || 'development'}`
     //   synchronize: true, //同步本地的schema与数据库 -> 初始化的时候去使用
     //   logging: ['error']
     // }),
-    UserModule
+    UserModule,
+    MyLogsModule
   ],
   controllers: [AppController],
   providers: [AppService],
