@@ -15,6 +15,7 @@ import { Roles } from './roles/roles.entity';
 import {connectionParams} from '../ormconfig'
 import { MyLogsModule } from './my_logs/my_logs.module';
 import { AuthModule } from './auth/auth.module';
+import { RolesModule } from './roles/roles.module';
 
 const envFilePath = `.env.${process.env.NODE_ENV || 'development'}`
 
@@ -57,7 +58,8 @@ const envFilePath = `.env.${process.env.NODE_ENV || 'development'}`
     // }),
     UserModule,
     MyLogsModule,
-    AuthModule
+    AuthModule,
+    RolesModule
   ],
   controllers: [AppController],
   providers: [AppService],

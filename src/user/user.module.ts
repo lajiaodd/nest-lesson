@@ -5,7 +5,7 @@ import { User } from './user.entity';
 import { UserController } from './user.controller';
 import { MyLogs } from 'src/my_logs/my_logs.entity';
 import { JwtService } from '@nestjs/jwt';
-import { Roles } from 'src/roles/roles.entity';
+import { Roles } from '../roles/roles.entity';
 
 @Module({
   imports:[TypeOrmModule.forFeature([User, MyLogs, Roles])],

@@ -1,7 +1,7 @@
 import { Exclude } from 'class-transformer';
 import { MyLogs } from 'src/my_logs/my_logs.entity';
 import { Profile } from 'src/profile/profile.entity';
-import { Roles } from 'src/roles/roles.entity';
+import { Roles } from '../roles/roles.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany, ManyToMany, JoinTable, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
 
 @Entity()
